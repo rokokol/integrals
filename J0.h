@@ -61,14 +61,13 @@ inline std::pair<ulong, double> calculate_integral(
     double factor = 1)
 {
     int n = 1;
-    ulong i = 0;
     std::vector<double> dots = linspace(a, x, n);
-    double approx = j0(x, e);
+    double prev_approx = 0;
     double result = factor * method(dots, function);
-    while (std::abs(approx - result) > e) {
-        i++;
+    while (std::abs(prev_approx - result) > e) {
         n *= 2;
         dots = linspace(a, x, n);
+        prev_approx = result;
         result = factor * method(dots, function);
     }
 
@@ -78,12 +77,12 @@ inline std::pair<ulong, double> calculate_integral(
 inline void test_integral_method_with_erf(
     const std::function<double(std::vector<double>, std::function<double(double)>)> &integral)
 {
-    printf("| $x$    | $J_0(x)$    | $J_n(x)$    | $n$    |\n");
-    printf("|:------:|:----------:|:----------:|:------|\n");
+    printf("| $x$    | $J_0(x)$    | $J_n(x)$    | $J_0(x) - J_n(x)$ | $n$    |\n");
+    printf("|:------:|:----------:|:----------:|:----------:|:------|\n");
     for (auto &&t : linspace(0, 2, 10)) {
-        auto value = erf(t);
+        auto j0 = erf(t);
         auto res = calculate_integral(integral, erf, f, 0, t, 1E-6, FACTOR);
-        printf("|$%-2.2f$ | $%-6.6f$ | $%-6.6f$ | $%-8lu$|\n", t, value, res.second, res.first);
+        printf("|%-2.2f | %-6.6f | %-6.6f | %-g | %-8lu|\n", t, j0, res.second, std::abs(j0 - res.second), res.first);
     }
 }
 } // namespace J0

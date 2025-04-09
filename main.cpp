@@ -7,15 +7,15 @@ void print_tables()
 {
     printf("### Метод левых прямоугольников:\n\n");
     J0::test_integral_method_with_erf(integral_methods::calculate_left_integral);
-    printf("---\n\n"); // n_max = 1'048'576
+    printf("\n---\n\n"); // n_max = 1'048'576
 
     printf("### Метод правых прямоугольников:\n\n");
     J0::test_integral_method_with_erf(integral_methods::calculate_left_integral);
-    printf("---\n\n"); // n_max = 1'048'576
+    printf("\n---\n\n"); // n_max = 1'048'576
 
     printf("### Метод центральных прямоугольников:\n\n");
     J0::test_integral_method_with_erf(integral_methods::calculate_central_integral);
-    printf("---\n\n"); // n_max = 256
+    printf("\n---\n\n"); // n_max = 256
     /*Нихуя себе быстрее, n_max: 1'048'576 -> 256
      *
      *Если решить высчитывать в методе левых прямоугольников первый и последний отрезки при помощи
@@ -25,7 +25,7 @@ void print_tables()
 
     printf("### Метод трапеций:\n\n");
     J0::test_integral_method_with_erf(integral_methods::calculate_trapezoid_integral);
-    printf("---\n\n"); // n_max = 512
+    printf("\n---\n\n"); // n_max = 512
     /*Примечательно то, что тут максимальное число разбиений наблюдается в
      *середине отрезка [a,b]=[0,2]. Причем, невзирая на ожидаемый лучший чем метод центральных
      *интегралов результат, у последнего так же можно заметить подобную тенденцию. Однако, у
@@ -35,7 +35,7 @@ void print_tables()
 
     printf("### Метод Симпсона:\n\n");
     J0::test_integral_method_with_erf(integral_methods::calculate_simpson_integral);
-    printf("---\n\n"); // n_max = 16
+    printf("\n---\n\n"); // n_max = 16
     /*А вот это уже серьезный результат. Невзирая на, казалось бы, сложность алгоритма:
      *высчитывание, по сути, интеграла сплайна из парабол, более сложная логика с лихвой
      *компенсируется многократно более быстрым подсчетом результата: n_max: 256 -> 16
@@ -44,7 +44,7 @@ void print_tables()
 
     printf("### Метод Гаусса:\n\n");
     J0::test_integral_method_with_erf(integral_methods::calculate_gaussian_integral);
-    printf("---\n\n"); // n_max = 8
+    printf("\n---\n\n"); // n_max = 8
     /*Заслуженно лучший метод. Не зря ему уделяется целая отдельная глава в пособии Даутова
      *Вычисления стали лишь немного более громоздкими, однако эффективность возросла в 2 раза по
      *сравнению с методом Симпсона, и в целую 131'000 раз на фоне метода левых прямоугольников
